@@ -28,6 +28,14 @@ class NewPetForm extends Component {
     event.preventDefault();
     console.log(this.state);
     this.props.onSubmitPetCallback(this.state);
+    this.setState({
+      images: [],
+      id: null,
+      name: '',
+      species: '',
+      about: '',
+      location: '',
+    });
   };
 
   render() {
@@ -35,10 +43,26 @@ class NewPetForm extends Component {
       <form className="new-pet-form" onSubmit={this.handleSubmit}>
         <h3>Add a Pet</h3>
         {/* A form should go here! */}
-        <input name="name" onChange={this.handleOnChange} />
-        <input name="species" onChange={this.handleOnChange} />
-        <input name="about" onChange={this.handleOnChange} />
-        <input name="location" onChange={this.handleOnChange} />
+        <input
+          name="name"
+          onChange={this.handleOnChange}
+          value={this.state.name}
+        />
+        <input
+          name="species"
+          onChange={this.handleOnChange}
+          value={this.state.species}
+        />
+        <input
+          name="about"
+          onChange={this.handleOnChange}
+          value={this.state.about}
+        />
+        <input
+          name="location"
+          onChange={this.handleOnChange}
+          value={this.state.location}
+        />
         <input
           className="btn btn-success new-pet-form--submit"
           type="submit"
