@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PetList from './components/PetList';
-import PetCard from './components/PetCard'
 import PetDetails from './components/PetDetails';
 import SearchBar from './components/SearchBar';
 import NewPetForm from './components/NewPetForm';
@@ -20,12 +19,25 @@ class App extends Component {
     };
   }
 
+  onSelectPet = (petId) => {
+    const pet = this.state.petList.find(pet => pet.id === petId)
 
+    this.setState({
+      currentPet: pet
+    });
+  }
 
+  onDeletePet = (petId) => {
+    const newPetList = this.state.petList.filter(pet => pet.id !== petId);
+
+    this.setState({
+      petList: newPetList
+    });
+  }
 
   render() {
-    const { currentPet } = this.state;
-    
+    const { currentPet, petList } = this.state;
+
     return (
       <main className="App">
         <header className="app-header">
@@ -35,10 +47,13 @@ class App extends Component {
           { /* Wave 4:  Place to add the SearchBar component */ }
           <SearchBar />
         </section>
-          { /* Wave 2:  Where Pet Details should appear */ }
         <section className="pet-list-wrapper">
-          { /* Wave 1:  Where PetList should appear */ }
+          <PetList
+            pets={petList}
+            onSelectPet={this.onSelectPet}
+            onDeletePet={this.onDeletePet} />
         </section>
+        <PetDetails currentPet={currentPet} />
         <section className="new-pet-form-wrapper">
           { /* Wave 3:  Where NewPetForm should appear */ }
         </section>
