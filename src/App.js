@@ -35,6 +35,14 @@ class App extends Component {
     });
   }
 
+  addPetCallback = (pet) => {
+    const petIds = this.state.petList.map(pet => pet.id)
+
+    this.setState({
+      petList: [...this.state.petList, {...pet, id: Math.max(...petIds) + 1}]
+    });
+  }
+
   render() {
     const { currentPet, petList } = this.state;
 
@@ -55,7 +63,7 @@ class App extends Component {
         </section>
         <PetDetails currentPet={currentPet} />
         <section className="new-pet-form-wrapper">
-          { /* Wave 3:  Where NewPetForm should appear */ }
+          <NewPetForm addPetCallback={this.addPetCallback} />
         </section>
       </main>
     );
