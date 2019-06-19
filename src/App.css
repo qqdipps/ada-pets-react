@@ -1,6 +1,7 @@
 .App {
 
 }
+
 h1 {
   font-size: 3.5rem;
   font-family: Menlo;
@@ -8,6 +9,10 @@ h1 {
 }
 .app-header {
   grid-area: header;
+}
+
+.app-header .error {
+  color: #f00;
 }
 
 .search-bar {

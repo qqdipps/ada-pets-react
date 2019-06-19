@@ -17,6 +17,7 @@ class App extends Component {
     this.state = {
       petList: [],
       currentPet: undefined,
+      error: null
     };
   }
 
@@ -34,12 +35,14 @@ class App extends Component {
         } else {
           return [];
         }
-      }).slice(0, 10);
+      });
 
       this.setState({ petList: pets });
     })
     .catch((error) => {
-      // Show an error
+      this.setState({
+        errorMessage: error.message
+      })
     })
   }
 
@@ -76,10 +79,16 @@ class App extends Component {
   render() {
     const { currentPet, petList } = this.state;
 
+    const errorSection = (this.state.errorMessage) ? 
+    (<section className="error">
+       Error: {this.state.errorMessage}
+     </section>) : null;
+
     return (
       <main className="App">
         <header className="app-header">
           <h1>Ada Pets</h1>
+          {errorSection}
         </header>
         <section className="search-bar-wrapper">
           <SearchBar searchCallback={this.searchCallback} />
