@@ -8,22 +8,25 @@ class NewPetForm extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
+    this.cleared = {
       name: "",
       species: "",
       location: "", 
       about: "", 
       images: ""
     };
+
+    this.state = {...this.cleared}
   }
   
   addPet = (event) => {
     event.preventDefault();
 
     const pet = this.state;
-    console.log(pet);
 
     this.props.addPetCallback(pet)
+
+    this.setState({...this.cleared});
   }
 
   onInputChange = (event) => {
