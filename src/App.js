@@ -43,6 +43,12 @@ class App extends Component {
     });
   }
 
+  searchCallback = (queryString) => {
+    this.setState({
+      queryString
+    });
+  }
+
   render() {
     const { currentPet, petList } = this.state;
 
@@ -52,16 +58,16 @@ class App extends Component {
           <h1>Ada Pets</h1>
         </header>
         <section className="search-bar-wrapper">
-          { /* Wave 4:  Place to add the SearchBar component */ }
-          <SearchBar />
+          <SearchBar searchCallback={this.searchCallback} />
         </section>
+        <PetDetails currentPet={currentPet} />
         <section className="pet-list-wrapper">
           <PetList
             pets={petList}
             onSelectPet={this.onSelectPet}
-            onDeletePet={this.onDeletePet} />
+            onDeletePet={this.onDeletePet}
+            queryString={this.state.queryString}/>
         </section>
-        <PetDetails currentPet={currentPet} />
         <section className="new-pet-form-wrapper">
           <NewPetForm addPetCallback={this.addPetCallback} />
         </section>
