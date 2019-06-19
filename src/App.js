@@ -7,16 +7,40 @@ import NewPetForm from './components/NewPetForm';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
-import pets from './data/pets.json';
+// import pets from './data/pets.json';
+import axios from 'axios';
 
 class App extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      petList: pets,
+      petList: [],
       currentPet: undefined,
     };
+  }
+
+  componentDidMount() {
+    axios.get('https://petdibs.herokuapp.com/pets')
+    .then((response) => {
+      console.log("In .then!");
+
+      const pets = response.data.flatMap(pet => {
+        if (pet.name && pet.breed && pet.about) {
+          return [{
+            ...pet,
+            species: pet.breed.toLowerCase()
+          }];
+        } else {
+          return [];
+        }
+      }).slice(0, 10);
+
+      this.setState({ petList: pets });
+    })
+    .catch((error) => {
+      // Show an error
+    })
   }
 
   onSelectPet = (petId) => {
